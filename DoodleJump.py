@@ -29,6 +29,11 @@ rychlost_postavicky = 3
 super_skoky = 2
 viac_skokov = 0
 
+# Muzika
+muzika = pygame.mixer.music.load('Doodle Jump (Original Mix).mp3')
+pygame.mixer.music.play(-1)
+mixer.music.set_volume(0.1)
+
 # Screen
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption('Doodle Jump')
