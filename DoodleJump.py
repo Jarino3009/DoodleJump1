@@ -35,19 +35,19 @@ viac_skokov = 0
 # Muzika
 muzika = pygame.mixer.music.load('Doodle Jump (Original Mix).mp3')
 pygame.mixer.music.play(-1)
-mixer.music.set_volume(0.1)
+mixer.music.set_volume(0.01)
 
 # Obrazovka
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption('Doodle Jump')
 
-# Kolízie
-def check_collisions(obj_list, s):
+# Kolízie medzi platformamy
+def check_collisions(platf_list, s):
     global postavicka_x
     global postavicka_y
     global zmena_y
-    for i in range(len(obj_list)):
-        if obj_list[i].colliderect([postavicka_x + 20, postavicka_y + 60, 45, 5]) and skok == False and zmena_y > 0:
+    for i in range(len(platf_list)):
+        if platf_list[i].colliderect([postavicka_x + 20, postavicka_y + 60, 45, 5]) and skok == False and zmena_y > 0:
             s = True
     return s
 
@@ -68,7 +68,7 @@ def update_postavicka(y_pos):
 def update_platformy(sak_list_ne, y_pos, zmena):
     global score
     global high_score
-    if y_pos < 290 and zmena < 0:
+    if y_pos < 250 and zmena < 0:
         for i in range(len(sak_list_ne)):
             sak_list_ne[i][1] -= zmena
     else:
@@ -87,7 +87,7 @@ while running:
     casovac.tick(fps)
     screen.fill(pozadie)
     screen.blit(postavicka, (postavicka_x, postavicka_y))
-    blocks = []
+    bloky = []
     score_text = font.render('Score: ' + str(score), True, cierna, pozadie)
     screen.blit(score_text, (280, 0))
     high_score_text = font.render('High score: ' + str(high_score), True, cierna, pozadie)
