@@ -41,7 +41,7 @@ mixer.music.set_volume(0.1)
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption('Doodle Jump')
 
-# Colliosions
+# Collisions
 def check_collisions(obj_list, s):
     global postavicka_x
     global postavicka_y
@@ -167,4 +167,3 @@ while running:
 
     pygame.display.flip()
 pygame.quit()
-######
