@@ -102,7 +102,7 @@ while running:
 
     for i in range(len(platforms)):
         block = pygame.draw.rect(screen, cierna, platforms[i], 3, 3)
-        blocks.append(block)
+        bloky.append(block)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -132,7 +132,7 @@ while running:
             if event.key == pygame.K_d:
                 zmena_x = 0
 
-    skok = check_collisions(blocks, skok)
+    skok = check_collisions(bloky, skok)
     postavicka_x += zmena_x
 
     if postavicka_y < 440:
