@@ -37,11 +37,11 @@ muzika = pygame.mixer.music.load('Doodle Jump (Original Mix).mp3')
 pygame.mixer.music.play(-1)
 mixer.music.set_volume(0.1)
 
-# Screen
+# Obrazovka
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption('Doodle Jump')
 
-# Collisions
+# Kolízie
 def check_collisions(obj_list, s):
     global postavicka_x
     global postavicka_y
