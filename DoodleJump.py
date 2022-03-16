@@ -6,7 +6,9 @@ pygame.init()
 # Konstanty
 biela = (255, 255, 255)
 cierna = (0, 0, 0)
+siminustextfarba = (0, 153, 102)
 siva = (128, 128, 128)
+siminusfont = pygame.font.Font('freesansbold.ttf', 35)
 WIDTH = 400
 HEIGHT = 500
 pozadie = biela
@@ -39,13 +41,13 @@ mixer.music.set_volume(0.1)
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption('Doodle Jump')
 
-# Collisions
-def check_collisions(rect_list, s):
+# Colliosions
+def check_collisions(obj_list, s):
     global postavicka_x
     global postavicka_y
     global zmena_y
-    for i in range(len(rect_list)):
-        if rect_list[i].colliderect([postavicka_x + 20, postavicka_y + 60, 45, 5]) and skok == False and zmena_y > 0:
+    for i in range(len(obj_list)):
+        if obj_list[i].colliderect([postavicka_x + 20, postavicka_y + 60, 45, 5]) and skok == False and zmena_y > 0:
             s = True
     return s
 
@@ -63,9 +65,10 @@ def update_postavicka(y_pos):
     return y_pos
 
 # Pridavanie platforiem
-def update_platforms(sak_list_ne, y_pos, zmena):
+def update_platformy(sak_list_ne, y_pos, zmena):
     global score
-    if y_pos < 250 and zmena < 0:
+    global high_score
+    if y_pos < 300 and zmena < 0:
         for i in range(len(sak_list_ne)):
             sak_list_ne[i][1] -= zmena
     else:
@@ -74,29 +77,31 @@ def update_platforms(sak_list_ne, y_pos, zmena):
         if sak_list_ne[item][1] > 500:
             sak_list_ne[item] = [random.randint(10, 320), random.randint(-50, -10) ,70, 10]
             score += 1
+            if score == high_score:
+                high_score = score
     return sak_list_ne
 
 
 running = True
-while running == True:
+while running:
     casovac.tick(fps)
     screen.fill(pozadie)
     screen.blit(postavicka, (postavicka_x, postavicka_y))
     blocks = []
-    score_text = font.render('High score: ' + str(score), True, cierna, pozadie)
+    score_text = font.render('Score: ' + str(score), True, cierna, pozadie)
     screen.blit(score_text, (280, 0))
-    high_score_text = font.render('Score: ' + str(score), True, cierna, pozadie)
-    screen.blit(high_score_text, (320, 20))
+    high_score_text = font.render('High score: ' + str(high_score), True, cierna, pozadie)
+    screen.blit(high_score_text, (280, 20))
 
     score_text = font.render('Big Jump: ' + str(super_skoky), True, cierna, pozadie)
     screen.blit(score_text, (10, 10))
     if game_over:
-        si_minus_text = font.render('Si mínus!', True, cierna, pozadie)
-        screen.blit(si_minus_text, (170, 80))
+        si_minus_text = siminusfont.render('Si mínus!', True, (random.randint(1 ,255), random.randint(1 ,255), random.randint(1 ,255)), pozadie)
+        screen.blit(si_minus_text, (135, 80))
 
 
     for i in range(len(platforms)):
-        block = pygame.draw.rect(screen, cierna, platforms[i], 0, 3)
+        block = pygame.draw.rect(screen, cierna, platforms[i], 3, 3)
         blocks.append(block)
 
     for event in pygame.event.get():
@@ -137,7 +142,7 @@ while running == True:
         zmena_y = 0
         zmena_x = 0
 
-    platforms = update_platforms(platforms, postavicka_y, zmena_y)
+    platforms = update_platformy(platforms, postavicka_y, zmena_y)
 
     if postavicka_x < -20:
         postavicka_x = -20
@@ -152,7 +157,7 @@ while running == True:
     if score > high_score:
         high_score = score
 
-    if score - score_last > 20:
+    if score - score_last > 4:
         score_last = score
         pozadie = (random.randint(1 ,255), random.randint(1 ,255), random.randint(1 ,255))
 
@@ -160,6 +165,6 @@ while running == True:
         viac_skokov = score
         super_skoky += 1
 
-
     pygame.display.flip()
 pygame.quit()
+######
