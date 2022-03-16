@@ -68,7 +68,7 @@ def update_postavicka(y_pos):
 def update_platformy(sak_list_ne, y_pos, zmena):
     global score
     global high_score
-    if y_pos < 300 and zmena < 0:
+    if y_pos < 290 and zmena < 0:
         for i in range(len(sak_list_ne)):
             sak_list_ne[i][1] -= zmena
     else:
